@@ -18,7 +18,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
   //Textfield Controller
   TextEditingController _zipCodeController = TextEditingController();
   TextEditingController _cityController = TextEditingController();
-  TextEditingController _streetAddressController = TextEditingController();
+  TextEditingController _addressController = TextEditingController();
   TextEditingController _referalCodeController = TextEditingController();
 
   //for Dropdownbutton of state
@@ -28,9 +28,12 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
   final FirestoreServices firestoreServices = FirestoreServices();
   //SignUp Functiom
   Future signUp2() async {
-    if (_zipCodeController.text == _streetAddressController.text) {
+    if (_zipCodeController.text == "" ||
+        _addressController.text == "" ||
+        _cityController.text == "" ||
+        dropdownValue.toString() == "") {
       Fluttertoast.showToast(
-        msg: "Confirm password again!",
+        msg: "Please fill all the fields!!",
         backgroundColor: CColors.textfieldColor,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 2,
@@ -43,9 +46,9 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
             .updateUserData(dropdownValue.toString(), _zipCodeController.text,
                 _cityController.text, _cityController.text)
             .then((value) => Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => const Dashboard()),
-            (route) => false));
+                context,
+                MaterialPageRoute(builder: (context) =>  Dashboard()),
+                (route) => false));
       } catch (e) {
         Fluttertoast.showToast(
           msg: "An Error occors, please try again",
@@ -62,7 +65,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: CColors.primary,
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
@@ -161,7 +164,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
 
                 //street address text field
                 SebetTextfields(
-                  controller: _streetAddressController,
+                  controller: _addressController,
                   fieldName: "Street Address",
                   maxLines: 6,
                 ),
@@ -178,9 +181,11 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                 //start button
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
-                  child: SignButton(buttonName: "Start", onPressed: () {
-                    signUp2();
-                  }),
+                  child: SignButton(
+                      buttonName: "Start",
+                      onPressed: () {
+                        signUp2();
+                      }),
                 ),
               ]),
         ),

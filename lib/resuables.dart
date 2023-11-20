@@ -75,7 +75,7 @@ class LogoAndText extends StatelessWidget {
           Text(
             text1,
             style: TextStyle(
-                color: CColors.primary,
+                color: CColors.secondary,
                 fontSize: 40,
                 fontWeight: FontWeight.bold),
           ),

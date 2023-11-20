@@ -22,9 +22,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final FirestoreServices firestoreServices = FirestoreServices();
   //SignUp Functiom
   Future signUp() async {
-    if (_passwordController.text != _confirmPassController.text) {
+    if (_fnameController.text == "" ||
+        _lnameController.text == "" ||
+        _phoneController.text == "") {
       Fluttertoast.showToast(
-        msg: "Confirm password again!",
+        msg: "Please Fill all the fields!",
+        backgroundColor: CColors.textfieldColor,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 2,
+        textColor: CColors.grey,
+        fontSize: 15,
+      );
+    } else if (_passwordController.text != _confirmPassController.text) {
+      Fluttertoast.showToast(
+        msg: "Confirm password doesn't match!",
         backgroundColor: CColors.textfieldColor,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 2,
@@ -33,27 +44,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
       );
     } else {
       try {
-        await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: _emailController.text,
-                password: _passwordController.text);
-           
-          final newUser = UserModel(
-              firstname: _fnameController.text,
-              lastname: _lnameController.text,
-              email: _emailController.text,
-              phone: _phoneController.text,
-              state: null,
-              zipcode: null,
-              city: null,
-              address: null);
-          firestoreServices.addUser(newUser).then((value) =>
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SignUpScreen2()),
-                  (route) => true));
-        
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _emailController.text, password: _passwordController.text);
+
+        final newUser = UserModel(
+            firstname: _fnameController.text,
+            lastname: _lnameController.text,
+            email: _emailController.text,
+            phone: _phoneController.text,
+            state: null,
+            zipcode: null,
+            city: null,
+            address: null);
+        firestoreServices.addUser(newUser).then((value) =>
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const SignUpScreen2()),
+                (route) => true));
       } catch (e) {
         Fluttertoast.showToast(
           msg: "An Error occors, please try again",
@@ -83,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: CColors.primary,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

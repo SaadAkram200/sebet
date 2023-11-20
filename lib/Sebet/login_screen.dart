@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
 
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => const Dashboard()),
+            MaterialPageRoute(builder: (context) => Dashboard()),
             (route) => false);
       } catch (error) {
         Fluttertoast.showToast(
@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: CColors.primary,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 36, right: 36, top: 60),
@@ -105,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SignUpScreen()),
+                                  builder: (context) => const SignUpScreen()),
                               (route) => true);
                         },
                         child: Text(
