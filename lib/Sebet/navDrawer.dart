@@ -3,7 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sebet/Models/firestore_service.dart';
 import 'package:sebet/Models/user_model.dart';
+import 'package:sebet/Sebet/monthly_budget.dart';
+import 'package:sebet/Sebet/profile_page.dart';
+import 'package:sebet/Sebet/transaction_page.dart';
 import 'package:sebet/colors.dart';
+import 'package:sebet/resuables.dart';
 
 class NavDrawer extends StatefulWidget {
   const NavDrawer({super.key});
@@ -28,7 +32,7 @@ class _NavDrawerState extends State<NavDrawer> {
       if (snapshot.exists) {
         userData = UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
 
-        setState(() {});
+         setState(() {});
       } else {
         print('no data');
       }
@@ -41,11 +45,12 @@ class _NavDrawerState extends State<NavDrawer> {
       child: Container(
         color: CColors.primary,
         child: ListView(
-          //itemExtent: 37,
+          // itemExtent: 37,
 
           // Remove padding
           padding: const EdgeInsets.only(top: 30),
           children: [
+            //Username
             ListTile(
               leading: Image.asset("assets/images/user.png"),
               title: const Text(
@@ -66,89 +71,94 @@ class _NavDrawerState extends State<NavDrawer> {
                   "View Profile",
                   style: TextStyle(color: CColors.greenGrad1),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) =>const ProfilePage()));
+                },
               ),
               onTap: () {},
             ),
+
             Divider(
               color: CColors.grey1,
               thickness: 1,
               indent: 20,
               endIndent: 20,
             ),
-            ListTile(
-              leading: Image.asset("assets/images/dashboard.png"),
-              title: const Text(
-                "Dashboard",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              onTap: () {},
+
+            //dashboard
+            NavDrawerListTile(
+              imagePath: "assets/images/dashboard.png",
+              pageName: "Dashboard",
+              onTap: () {
+                Navigator.of(context).pop();
+              },
             ),
+
             Divider(
               color: CColors.grey1,
               thickness: 1,
               indent: 20,
               endIndent: 20,
             ),
-            ListTile(
-              leading: Image.asset("assets/images/monthlybudget.png"),
-              title: const Text(
-                "Monthly Budget",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Image.asset("assets/images/sinkingfund.png"),
-              title: const Text(
-                "Sinking Fund",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ),
-            ListTile(
-              leading: Image.asset("assets/images/debt.png"),
-              title: const Text(
-                "Debt Snowball",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              onTap: () {},
-            ),
+
+            //Monthly budget
+            NavDrawerListTile(
+                imagePath: "assets/images/monthlybudget.png",
+                pageName: "Monthly Budget",
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) =>const MonthlyBudget()));
+                }),
+
+            //Sinking fund
+            NavDrawerListTile(
+                imagePath: "assets/images/sinkingfund.png",
+                pageName: "Sinking Fund",
+                onTap: () {}),
+
+            //Debt snowballs
+            NavDrawerListTile(
+                imagePath: "assets/images/debt.png",
+                pageName: "Debt Snowball",
+                onTap: () {}),
+
             Divider(
               color: CColors.grey1,
               thickness: 1,
               indent: 20,
               endIndent: 20,
             ),
-            ListTile(
-              leading: Image.asset("assets/images/transaction.png"),
-              title: const Text(
-                "Transaction",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Image.asset("assets/images/Calendar.png"),
-              title: const Text(
-                "Weekly Schedule",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Image.asset("assets/images/reports.png"),
-              title: const Text(
-                "Reports",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              onTap: () {},
-            ),
+
+            //Transactions
+            NavDrawerListTile(
+                imagePath: "assets/images/transaction.png",
+                pageName: "Transaction",
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) =>const TransactionPage()));
+                }),
+
+            //weekly schedule
+            NavDrawerListTile(
+                imagePath: "assets/images/Calendar.png",
+                pageName: "Weekly Schedule",
+                onTap: () {}),
+
+            //reports
+            NavDrawerListTile(
+                imagePath: "assets/images/reports.png",
+                pageName: "Reports",
+                onTap: () {}),
+
             Divider(
               color: CColors.grey1,
               thickness: 1,
               indent: 20,
               endIndent: 20,
             ),
+
+            //CSV file Picker
             Padding(
               padding: const EdgeInsets.all(30),
               child: DottedBorder(
@@ -171,7 +181,7 @@ class _NavDrawerState extends State<NavDrawer> {
                             width: 40,
                             height: 40,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
+                              borderRadius: BorderRadius.circular(10),
                               gradient: LinearGradient(
                                 colors: [
                                   CColors.greenGrad1,
@@ -182,14 +192,10 @@ class _NavDrawerState extends State<NavDrawer> {
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: CColors.greenGrad1,
+                                  color: CColors.greenGrad2,
                                   blurRadius: 4,
-                                  offset: Offset(6,6), // Shadow position
-                                ),
-                                BoxShadow(
-                                  color: CColors.greenGrad1,
-                                  blurRadius: 4,
-                                  offset: Offset(-6,-6), // Shadow position
+                                  spreadRadius: 2,
+                                  // offset: Offset(6,6), // Shadow position
                                 ),
                               ],
                             ),
@@ -207,14 +213,23 @@ class _NavDrawerState extends State<NavDrawer> {
                         "Upload CVS Files",
                         style: TextStyle(color: CColors.grey2),
                       ),
-                      Text(
-                        "of your bank transactions",
-                        style: TextStyle(color: CColors.grey2),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: Text(
+                          "of your bank transactions",
+                          style: TextStyle(color: CColors.grey2),
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
+            ),
+            Divider(
+              color: CColors.grey1,
+              thickness: 1,
+              indent: 20,
+              endIndent: 20,
             ),
           ],
         ),

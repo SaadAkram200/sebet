@@ -47,7 +47,7 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
                 _cityController.text, _cityController.text)
             .then((value) => Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) =>  Dashboard()),
+                MaterialPageRoute(builder: (context) => Dashboard()),
                 (route) => false));
       } catch (e) {
         Fluttertoast.showToast(
@@ -67,128 +67,135 @@ class _SignUpScreen2State extends State<SignUpScreen2> {
     return Scaffold(
       backgroundColor: CColors.primary,
       body: SafeArea(
-          child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 36, right: 36),
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //back button
-                BackButtonAndPageName(onTap: () {
-                  Navigator.pop(context);
-                }),
+        children: [
+          //back button
+          BackButtonAndPageName(onTap: () {
+            Navigator.pop(context);
+          }),
 
-                //Logo and texts
-                const Padding(
-                  padding: EdgeInsets.only(top: 30),
-                  child: LogoAndText(
-                      text1: "A few more", text2: "details to", text3: "begin"),
-                ),
-
-                //state and zip code
-                Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 36, right: 36),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // State
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(10),
-                              color: CColors.textfieldColor),
-                          child: DropdownButtonHideUnderline(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 10),
-                              child: DropdownButton(
-                                value: dropdownValue,
-                                dropdownColor: CColors.textfieldColor,
-                                icon: Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: CColors.greenGrad1,
-                                  size: 30,
-                                ),
-                                hint: Text(
-                                  "State",
-                                  style: TextStyle(color: CColors.greenGrad1),
-                                ),
-                                items: <String>[
-                                  'Pakistan',
-                                  'UAE',
-                                  'Turkey',
-                                  'Qatar'
-                                ].map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      style: const TextStyle(
-                                          fontSize: 16, color: Colors.grey),
+                    //Logo and texts
+                    const LogoAndText(
+                        text1: "A few more",
+                        text2: "details to",
+                        text3: "begin"),
+
+                    //state and zip code
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        // State
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(),
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: CColors.textfieldColor),
+                              child: DropdownButtonHideUnderline(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: DropdownButton(
+                                    value: dropdownValue,
+                                    dropdownColor: CColors.textfieldColor,
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: CColors.greenGrad1,
+                                      size: 30,
                                     ),
-                                  );
-                                }).toList(),
-                                borderRadius: BorderRadius.circular(10),
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    dropdownValue = newValue!;
-                                  });
-                                },
+                                    hint: Text(
+                                      "State",
+                                      style:
+                                          TextStyle(color: CColors.greenGrad1),
+                                    ),
+                                    items: <String>[
+                                      'Pakistan',
+                                      'UAE',
+                                      'Turkey',
+                                      'Qatar'
+                                    ].map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(
+                                          value,
+                                          style: const TextStyle(
+                                              fontSize: 16, color: Colors.grey),
+                                        ),
+                                      );
+                                    }).toList(),
+                                    borderRadius: BorderRadius.circular(10),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        dropdownValue = newValue!;
+                                      });
+                                    },
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
 
-                    //zip code
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: SebetTextfields(
-                          controller: _zipCodeController,
-                          fieldName: "Zip Code",
+                        //zip code
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: SebetTextfields(
+                              controller: _zipCodeController,
+                              fieldName: "Zip Code",
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
 
-                //city text field
-                SebetTextfields(
-                  controller: _cityController,
-                  fieldName: "City",
-                ),
+                    //city text field
+                    SebetTextfields(
+                      controller: _cityController,
+                      fieldName: "City",
+                    ),
 
-                //street address text field
-                SebetTextfields(
-                  controller: _addressController,
-                  fieldName: "Street Address",
-                  maxLines: 6,
-                ),
+                    //street address text field
+                    SebetTextfields(
+                      controller: _addressController,
+                      fieldName: "Street Address",
+                      maxLines: 6,
+                    ),
 
-                //Referal code text field
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: SebetTextfields(
-                    controller: _referalCodeController,
-                    fieldName: "Referal code (Optional)",
-                  ),
-                ),
+                    Divider(
+                      color: CColors.grey1,
+                      thickness: 1,
+                    ),
 
-                //start button
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: SignButton(
-                      buttonName: "Start",
-                      onPressed: () {
-                        signUp2();
-                      }),
-                ),
-              ]),
-        ),
+                    //Referal code text field
+                    SebetTextfields(
+                      controller: _referalCodeController,
+                      fieldName: "Referal code (Optional)",
+                    ),
+
+                    //start button
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: SignButton(
+                          buttonName: "Start",
+                          onPressed: () {
+                            signUp2();
+                          }),
+                    ),
+                  ]),
+            ),
+          ),
+        ],
       )),
     );
   }

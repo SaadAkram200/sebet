@@ -11,7 +11,8 @@ class SebetTextfields extends StatelessWidget {
       {super.key,
       required this.controller,
       required this.fieldName,
-      this.obscureText = false,  this.maxLines=1});
+      this.obscureText = false,
+      this.maxLines = 1});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,10 @@ class SebetTextfields extends StatelessWidget {
           color: Colors.grey,
         ),
         decoration: InputDecoration(
-            contentPadding: const EdgeInsets.only(left: 20,top: 20,),
+            contentPadding: const EdgeInsets.only(
+              left: 20,
+              top: 20,
+            ),
             filled: true,
             fillColor: CColors.textfieldColor,
             hintText: fieldName,
@@ -139,36 +143,101 @@ class SignButton extends StatelessWidget {
 // ignore: must_be_immutable
 class BackButtonAndPageName extends StatelessWidget {
   void Function()? onTap;
-   BackButtonAndPageName({
+  final String pageName;
+  BackButtonAndPageName({
     super.key,
     required this.onTap,
-
+    this.pageName = "",
   });
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            gradient: LinearGradient(
-              colors: [
-                CColors.redGrad1,
-                CColors.redGrad2,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              InkWell(
+                onTap: onTap,
+                child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      gradient: LinearGradient(
+                        colors: [
+                          CColors.redGrad1,
+                          CColors.redGrad2,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.5),
+                      child: Center(
+                          child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      )),
+                    )),
+              ),
+              
+              Expanded(
+                child: Text(
+                  pageName,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 29,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+             
+        
+              Opacity(
+                opacity: 0,
+                child: Container(
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Center(
+                            child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        )),
+                      )),
+              ),
+            ],
           ),
-          width: 40,
-          height: 40,
-          child: const Center(
-              child: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          )
-          )
         ),
+        const SizedBox(height: 20,),
+        Divider(
+          color: CColors.grey1,
+          thickness: 1,
+        ),
+      ],
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class NavDrawerListTile extends StatelessWidget {
+  final String imagePath, pageName;
+  void Function()? onTap;
+  NavDrawerListTile({
+    super.key,
+    required this.imagePath,
+    required this.pageName,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Image.asset(imagePath),
+      title: Text(
+        pageName,
+        style: const TextStyle(color: Colors.white, fontSize: 16),
+      ),
+      onTap: onTap,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sebet/Sebet/profile_page.dart';
 import 'package:sebet/Sebet/splash_screen.dart';
 import 'firebase_options.dart';
 
@@ -18,7 +19,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen()
+      home: ProfilePage()
     );
   }
 }

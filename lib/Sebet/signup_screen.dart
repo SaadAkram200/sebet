@@ -92,99 +92,101 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       backgroundColor: CColors.primary,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 36,
-              right: 36,
+        child: Column(
+          children: [
+            
+            //back button
+            BackButtonAndPageName(
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
-            child: Column(
-              //mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
 
-              children: [
-                //back button
-                BackButtonAndPageName(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 36,
+                  right: 36,
                 ),
-
-                //logo and starting text
-                const Padding(
-                  padding: EdgeInsets.only(top: 30),
-                  child: LogoAndText(
-                    text1: "Hello,",
-                    text2: "Signup to",
-                    text3: "get started!",
-                  ),
-                ),
-
-                //first and last name
-                Row(
+                child: Column(
                   //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    // first name
-                    Flexible(
-                        child: Padding(
-                      padding: const EdgeInsets.only(right: 5),
-                      child: SebetTextfields(
-                          controller: _fnameController,
-                          fieldName: "First name",
-                          obscureText: false),
-                    )),
+                  crossAxisAlignment: CrossAxisAlignment.start,
 
-                    //last name
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: SebetTextfields(
-                            controller: _lnameController,
-                            fieldName: "last Name",
-                            obscureText: false),
-                      ),
+                  children: [
+                    //logo and starting text
+                    const LogoAndText(
+                      text1: "Hello,",
+                      text2: "Signup to",
+                      text3: "get started!",
+                    ),
+
+                    //first and last name
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        // first name
+                        Flexible(
+                            child: Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: SebetTextfields(
+                              controller: _fnameController,
+                              fieldName: "First name",
+                              obscureText: false),
+                        )),
+
+                        //last name
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: SebetTextfields(
+                                controller: _lnameController,
+                                fieldName: "last Name",
+                                obscureText: false),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    //email textfield
+                    SebetTextfields(
+                      controller: _emailController,
+                      fieldName: "Email",
+                    ),
+
+                    //phone textfield
+                    SebetTextfields(
+                      controller: _phoneController,
+                      fieldName: "Phone",
+                    ),
+
+                    //password textfield
+                    SebetTextfields(
+                      controller: _passwordController,
+                      fieldName: "Password",
+                      obscureText: true,
+                    ),
+
+                    //confirm pass textfield
+                    SebetTextfields(
+                      controller: _confirmPassController,
+                      fieldName: "Confirm Password",
+                      obscureText: true,
+                    ),
+
+                    // signup button
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: SignButton(
+                          buttonName: "Sign Up",
+                          onPressed: () {
+                            signUp();
+                          }),
                     ),
                   ],
                 ),
-
-                //email textfield
-                SebetTextfields(
-                  controller: _emailController,
-                  fieldName: "Email",
-                ),
-
-                //phone textfield
-                SebetTextfields(
-                  controller: _phoneController,
-                  fieldName: "Phone",
-                ),
-
-                //password textfield
-                SebetTextfields(
-                  controller: _passwordController,
-                  fieldName: "Password",
-                  obscureText: true,
-                ),
-
-                //confirm pass textfield
-                SebetTextfields(
-                  controller: _confirmPassController,
-                  fieldName: "Confirm Password",
-                  obscureText: true,
-                ),
-
-                // signup button
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: SignButton(
-                      buttonName: "Sign Up",
-                      onPressed: () {
-                        signUp();
-                      }),
-                ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
