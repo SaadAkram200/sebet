@@ -15,11 +15,11 @@ class MonthlyBudget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BackButtonAndPageName(
-              pageName: "Monthly Budget",
-              onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => Dashboard()));
-            }),
+                pageName: "Monthly Budget",
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Dashboard()));
+                }),
           ],
         ),
       ),

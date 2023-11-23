@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'colors.dart';
 
@@ -102,7 +104,7 @@ class LogoAndText extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
+
 class SignButton extends StatelessWidget {
   final String buttonName;
   void Function()? onPressed;
@@ -140,7 +142,6 @@ class SignButton extends StatelessWidget {
 }
 
 //back button and page name
-// ignore: must_be_immutable
 class BackButtonAndPageName extends StatelessWidget {
   void Function()? onTap;
   final String pageName;
@@ -180,7 +181,6 @@ class BackButtonAndPageName extends StatelessWidget {
                       )),
                     )),
               ),
-              
               Expanded(
                 child: Text(
                   pageName,
@@ -191,24 +191,24 @@ class BackButtonAndPageName extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-             
-        
               Opacity(
                 opacity: 0,
                 child: Container(
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Center(
-                            child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        )),
-                      )),
+                    child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Center(
+                      child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  )),
+                )),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 20,),
+        const SizedBox(
+          height: 20,
+        ),
         Divider(
           color: CColors.grey1,
           thickness: 1,
@@ -218,7 +218,7 @@ class BackButtonAndPageName extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
+
 class NavDrawerListTile extends StatelessWidget {
   final String imagePath, pageName;
   void Function()? onTap;
@@ -238,6 +238,36 @@ class NavDrawerListTile extends StatelessWidget {
         style: const TextStyle(color: Colors.white, fontSize: 16),
       ),
       onTap: onTap,
+    );
+  }
+}
+
+class SmallButton extends StatelessWidget {
+  final String  buttonName;
+  final IconData iconName;
+  void Function()? onPressed;
+  SmallButton({
+    super.key,
+    required this.iconName,
+    required this.buttonName,
+    required this.onPressed, 
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 12),
+      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+       Icon(iconName, color: CColors.greenGrad1,),
+        TextButton(
+          onPressed: onPressed,
+          child: Text(
+            buttonName,
+            style: TextStyle(color: CColors.greenGrad1),
+            
+          ),
+        ),
+      ]),
     );
   }
 }

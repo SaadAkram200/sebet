@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sebet/models/firestore_service.dart';
 import 'package:sebet/models/user_model.dart';
+import 'package:sebet/screens/debt_screen.dart';
 import 'package:sebet/screens/monthly_budget.dart';
 import 'package:sebet/screens/profile_page.dart';
 import 'package:sebet/screens/transaction_page.dart';
@@ -23,12 +25,13 @@ class _NavDrawerState extends State<NavDrawer> {
 // variable to store userdata coming from Firestore
   UserModel? userData;
 
+late StreamSubscription streamSubscription;
   //geting user info
   @override
   void initState() {
     super.initState();
     var uid = FirebaseAuth.instance.currentUser?.uid;
-    firestoreServices.users.doc(uid).snapshots().listen((snapshot) {
+   streamSubscription =  firestoreServices.users.doc(uid).snapshots().listen((snapshot) {
       if (snapshot.exists) {
         userData = UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
 
@@ -72,6 +75,7 @@ class _NavDrawerState extends State<NavDrawer> {
                   style: TextStyle(color: CColors.greenGrad1),
                 ),
                 onPressed: () {
+                  
                   Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) =>const ProfilePage()));
                 },
@@ -121,7 +125,10 @@ class _NavDrawerState extends State<NavDrawer> {
             NavDrawerListTile(
                 imagePath: "assets/images/debt.png",
                 pageName: "Debt Snowball",
-                onTap: () {}),
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) =>const DebtScreen()));
+                }),
 
             Divider(
               color: CColors.grey1,
@@ -235,5 +242,13 @@ class _NavDrawerState extends State<NavDrawer> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    streamSubscription.cancel();
+   
+    super.dispose();
+
   }
 }

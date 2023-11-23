@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sebet/screens/dashboard.dart';
 
 import 'login_screen.dart';
 
@@ -19,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void splashTimer() {
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) =>  LoginScreen()));
+          context, MaterialPageRoute(builder: (context) => FirebaseAuth.instance.currentUser== null? LoginScreen(): Dashboard()));
     });
   }
   @override
